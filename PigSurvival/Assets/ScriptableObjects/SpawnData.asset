@@ -16,6 +16,7 @@ MonoBehaviour:
   - spawnType: 1
     enemyPrefabs:
     - {fileID: 4904864739336975886, guid: 0d8f45dfb7eba33458ae4a4eca1204e8, type: 3}
+    - {fileID: 4904864739336975886, guid: e290c85dc6e26f246b07166e84431d74, type: 3}
     time: 0
     spawnRate: 3
   - spawnType: 1
@@ -36,5 +37,8 @@ MonoBehaviour:
   - spawnType: 1
     enemyPrefabs:
     - {fileID: 4904864739336975886, guid: 0d8f45dfb7eba33458ae4a4eca1204e8, type: 3}
+    - {fileID: 4904864739336975886, guid: e290c85dc6e26f246b07166e84431d74, type: 3}
+    - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
+    - {fileID: 4904864739336975886, guid: eb4e0b7e416261d42af90fcf0b8a5fe2, type: 3}
     time: 5
     spawnRate: 20

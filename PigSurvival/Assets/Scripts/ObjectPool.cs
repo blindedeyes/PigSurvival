@@ -28,16 +28,12 @@ public class ObjectPool : MonoBehaviour
 
         private GameObject _prefab;
 
-        private GameObject parentObject;
-
         public void Initialize(GameObject prefab, int initialCount)
         {
             objects= new List<GameObject>();
             objectsInUse = new LinkedList<GameObject>();
             objectAvailable = new Queue<GameObject>();
             _prefab = prefab;
-
-            parentObject = new GameObject();
 
             for (int i = 0; i < initialCount; i++)
             {
@@ -64,7 +60,7 @@ public class ObjectPool : MonoBehaviour
 
         private GameObject AddObject()
         {
-            var go = Instantiate(_prefab, parentObject.transform);
+            var go = Instantiate(_prefab);
             objects.Add(go);
             return go;
         }
@@ -85,7 +81,6 @@ public class ObjectPool : MonoBehaviour
             {
                 Destroy(objects[i]);
             }
-            Destroy(parentObject);
         }
     }
 
@@ -106,7 +101,6 @@ public class ObjectPool : MonoBehaviour
         data.Initialize(prefab, count);
         pool.Add(prefab, data);
     }
-
 
     public GameObject GetObject(GameObject prefab)
     {

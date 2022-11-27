@@ -1,30 +1,104 @@
-namespace Enemy
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.Collections;
+using UnityEngine.Jobs;
+using Unity.Jobs;
+
+public class EnemyManager : MonoBehaviour
 {
-    using UnityEngine;
-    using Enemy.Movement;
-    using System.Collections;
-    using System.Collections.Generic;
-    using Unity.Collections;
-    using Unity.Jobs;
-    using UnityEngine.Jobs;
+    public LevelScript levelData;
 
+    TransformAccessArray transArray;
 
-    public class EnemyManager : MonoBehaviour
+    private List<EntityStats> stats;
+    private JobHandle handle;
+
+    NativeArray<bool> isActive;
+    NativeArray<float> speeds;
+    // Start is called before the first frame update
+    void Start()
     {
-        public LevelScript levelData;
+        levelData.Init(this.transform);
+        levelData.RegisterEntitySpawnedEvent(EntitySpawned);
 
-        // Start is called before the first frame update
-        void Start()
+        //Create a transform access array capped at 2048 transforms.
+        //Removing transforms from this is expensive, so we are just
+        //going to get a bunch prepped and use as needed.
+        transArray = new TransformAccessArray(2048);
+        stats = new List<EntityStats>(2048);
+    }
+
+    private void OnDestroy()
+    {
+        handle.Complete();
+        if (isActive.IsCreated) isActive.Dispose();
+        if(speeds.IsCreated) speeds.Dispose();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        levelData.Tick(Time.deltaTime);
+
+        HandleJobSystem();
+
+        //Kicks off al jobs.
+        JobHandle.ScheduleBatchedJobs();
+    }
+
+    private void LateUpdate()
+    {
+        handle.Complete();
+        isActive.Dispose();
+        speeds.Dispose();
+    }
+
+    private void HandleJobSystem()
+    {
+        int cnt = stats.Count;
+        isActive = new NativeArray<bool>(cnt, Allocator.TempJob);
+        speeds = new NativeArray<float>(cnt, Allocator.TempJob);
+        //populate arrays.
+        for(int i = 0; i < cnt; i++)
         {
-            levelData.Init(this.transform);
+            var stat = stats[i];
+            isActive[i] = stat.IsActive;
+            speeds[i] = stat.Speed;
         }
 
-        // Update is called once per frame
-        void Update()
+        GenericStraightLinePathJob pathJob = new GenericStraightLinePathJob()
         {
-            //Stuff
-            Debug.Log("Update");
-            levelData.Tick(Time.deltaTime);
+            deltaTime = Time.deltaTime,
+            isActive = isActive,
+            velocity = speeds,
+            worldSpaceTarget = this.transform.position
+        };
+
+        handle = pathJob.Schedule(transArray);
+        
+    }
+
+    void EntitySpawned(GameObject o)
+    {
+        var stat = o.GetComponent<EntityStats>();
+        stat.Init();
+        if (stat.TransformArrayIndex == -1)
+        {
+            stat.RegisterOnDeath(EntityDied);
+            stat.TransformArrayIndex = transArray.length;
+            if (transArray.length >= 2048)
+            {
+                Debug.LogError("ERROR MORE THAN 2K ENTITIES IN TRANSFORM ARRAY");
+                return;
+            }
+            transArray.Add(stat.transform);
+            stats.Add(stat);
         }
+    }
+
+    void EntityDied(EntityStats e)
+    {
+        //might need later?
     }
 }

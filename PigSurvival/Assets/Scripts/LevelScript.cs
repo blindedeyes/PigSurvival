@@ -11,10 +11,10 @@ public class LevelScript : ScriptableObject
     private float spawnRate;
     private int lastUsedIndex;
     private Transform player;
-
     private float timeSinceSpawn;
-
     private Camera cam;
+    public delegate void EntitySpawnedEvent(GameObject o);
+    private EntitySpawnedEvent entitySpawnedEvent;
 
     public enum SpawnType
     {
@@ -64,30 +64,27 @@ public class LevelScript : ScriptableObject
     {
         float newTime = runTime + DeltaTime;
 
-        //Check to see if we are within the bounds of the play state.
-        if (lastUsedIndex + 1 < SpawnData.Count)
+        while ((lastUsedIndex + 1 < SpawnData.Count) && SpawnData[lastUsedIndex + 1].time < newTime)
         {
-            while (SpawnData[lastUsedIndex + 1].time < newTime)
+            //Handle next entry.
+            lastUsedIndex++;
+            var data = SpawnData[lastUsedIndex];
+            switch (data.spawnType)
             {
-                //Handle next entry.
-                lastUsedIndex++;
-                var data = SpawnData[lastUsedIndex];
-                switch (data.spawnType)
-                {
-                    case SpawnType.Random:
-                        HandleRandom(data);
-                        break;
-                    case SpawnType.PoolSwap:
-                        HandlePoolSwap(data);
-                        break;
-                    case SpawnType.OffsetOnPlayer:
-                        SpawnOffset(data);
-                        break;
-                    default:
-                        break;
-                }
+                case SpawnType.Random:
+                    HandleRandom(data);
+                    break;
+                case SpawnType.PoolSwap:
+                    HandlePoolSwap(data);
+                    break;
+                case SpawnType.OffsetOnPlayer:
+                    SpawnOffset(data);
+                    break;
+                default:
+                    break;
             }
         }
+
         runTime = newTime;
         SpawnFromPool(DeltaTime);
     }
@@ -109,7 +106,8 @@ public class LevelScript : ScriptableObject
     public void SpawnFromPool(float DeltaTime)
     {
         timeSinceSpawn += DeltaTime;
-        if(timeSinceSpawn >= 1f / spawnRate)
+
+        if ((spawnRate > 0) && timeSinceSpawn >= 1f / spawnRate)
         {
             Debug.LogWarning("Spawning From Pool");
             timeSinceSpawn = 0;
@@ -120,6 +118,19 @@ public class LevelScript : ScriptableObject
             pos.y = 0f; //force y 0
             //TODO: Offset from camera off screen?
             obj.transform.position = pos;
+
+            entitySpawnedEvent?.Invoke(obj);
         }
+    }
+
+    public void RegisterEntitySpawnedEvent(EntitySpawnedEvent e)
+    {
+        entitySpawnedEvent -= e;
+        entitySpawnedEvent += e;
+    }
+
+    public void UnregisterEntitySpawnedEvent(EntitySpawnedEvent e)
+    {
+        entitySpawnedEvent -= e;
     }
 }
