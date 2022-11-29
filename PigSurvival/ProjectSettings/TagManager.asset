@@ -11,11 +11,11 @@ TagManager:
   - 
   - Water
   - UI
+  - CameraBox
   - 
   - 
-  - 
-  - 
-  - 
+  - Enemies
+  - Player
   - 
   - 
   - 
@@ -40,4 +40,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Floor
+    uniqueID: 2234874631
+    locked: 0
+  - name: Enemy
+    uniqueID: 3854006055
+    locked: 0
+  - name: Player
+    uniqueID: 3825004335
     locked: 0
