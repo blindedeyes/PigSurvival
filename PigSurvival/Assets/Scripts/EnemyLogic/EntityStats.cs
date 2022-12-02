@@ -28,7 +28,9 @@ public class EntityStats : MonoBehaviour
     public bool IsActive {  get {  return currentHealth > 0; } }
 
     public delegate void EntityStatEvent(EntityStats e);
+    public delegate void EntityDamagedStatEvent(EntityStats e,float damage);
     private EntityStatEvent deathEvent;
+    private EntityDamagedStatEvent damageEvent;
 
     public void Init()
     {
@@ -48,11 +50,22 @@ public class EntityStats : MonoBehaviour
         deathEvent -= e;
     }
 
+    public void RegisterOnDamage(EntityDamagedStatEvent e)
+    {
+        damageEvent -= e;
+        damageEvent += e;
+    }
+
+    public void UnregisterOnDamage(EntityDamagedStatEvent e)
+    {
+        damageEvent -= e;
+    }
+
     public void TakeDamage(float Damage)
     {
-        Health -= Damage;
-
-        if (Health <= 0) deathEvent?.Invoke(this);
+        currentHealth -= Damage;
+        damageEvent?.Invoke(this, Damage);
+        if (currentHealth <= 0) deathEvent?.Invoke(this);
     }
 
     public void AddSpeedModifier(float mod)

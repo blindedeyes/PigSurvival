@@ -55,12 +55,14 @@ public class ObjectPool : MonoBehaviour
             }
 
             objectsInUse.AddFirst(go);
+            go.SetActive(true);
             return go;
         }
 
         private GameObject AddObject()
         {
             var go = Instantiate(_prefab);
+            go.transform.position = new Vector3(0, 100000, 0);
             objects.Add(go);
             return go;
         }
@@ -69,6 +71,8 @@ public class ObjectPool : MonoBehaviour
         {
             if (objectsInUse.Contains(obj))
             {
+                obj.transform.position = new Vector3(0, 100000, 0);
+                obj.SetActive(false);
                 objectAvailable.Enqueue(obj);
                 objectsInUse.Remove(obj);
             }
@@ -85,6 +89,7 @@ public class ObjectPool : MonoBehaviour
     }
 
     private Dictionary<GameObject, PoolData> pool = new Dictionary<GameObject, PoolData>();
+    private Dictionary<GameObject, PoolData> inUseToPool = new Dictionary<GameObject, PoolData>();
 
     private void Init()
     {
@@ -110,6 +115,19 @@ public class ObjectPool : MonoBehaviour
         }
 
         var go = pool[prefab].GetObject();
+        if (go != null)
+        {
+            inUseToPool.Add(go, pool[prefab]);
+        }
         return go;
+    }
+
+    public void FreeObject(GameObject go)
+    {
+        if (inUseToPool.ContainsKey(go))
+        {
+            inUseToPool[go].FreeObject(go);
+            inUseToPool.Remove(go);
+        }
     }
 }

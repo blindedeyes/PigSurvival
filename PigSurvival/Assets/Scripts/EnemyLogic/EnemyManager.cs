@@ -19,7 +19,7 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        levelData.Init(this.transform);
+        levelData.Init(PlayerController.Instance.MyTransform);
         levelData.RegisterEntitySpawnedEvent(EntitySpawned);
 
         //Create a transform access array capped at 2048 transforms.
@@ -72,7 +72,7 @@ public class EnemyManager : MonoBehaviour
             deltaTime = Time.deltaTime,
             isActive = isActive,
             velocity = speeds,
-            worldSpaceTarget = this.transform.position
+            worldSpaceTarget = PlayerController.Instance.MyTransform.position
         };
 
         handle = pathJob.Schedule(transArray);
@@ -99,6 +99,7 @@ public class EnemyManager : MonoBehaviour
 
     void EntityDied(EntityStats e)
     {
-        //might need later?
+        //Free the enemy for the pool
+        ObjectPool.Instance.FreeObject(e.gameObject);
     }
 }

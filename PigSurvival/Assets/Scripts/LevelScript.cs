@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+//using System.Diagnostics;
 using UnityEngine;
 
 
@@ -30,6 +31,8 @@ public class LevelScript : ScriptableObject
         public GameObject[] enemyPrefabs;
         public float time;
         public float spawnRate;
+
+        public float SpawnOffset;
     }
 
     public class EntitySpawnDataComparer : IComparer<EntitySpawnData>
@@ -100,7 +103,24 @@ public class LevelScript : ScriptableObject
     }
     public void SpawnOffset(EntitySpawnData data)
     {
+        int count = data.enemyPrefabs.Length;
+        float twoPi = Mathf.PI * 2f;
+        for (int i =0; i < count; i++)
+        {
+            Vector3 offset = Vector3.zero;
+            offset.x = Mathf.Cos((float)i / count * twoPi);
+            offset.y = Mathf.Sin((float)i / count * twoPi);
+            offset *= data.SpawnOffset;
+            offset += PlayerController.Instance.MyTransform.position;
+            Debug.Log(offset);
+            var obj = ObjectPool.Instance.GetObject(data.enemyPrefabs[i]);
+            //Position off screen.
+            Vector3 pos = offset;
+            //TODO: Offset from camera off screen?
+            obj.transform.position = pos;
 
+            entitySpawnedEvent?.Invoke(obj);
+        }
     }
 
     public void SpawnFromPool(float DeltaTime)
@@ -111,11 +131,11 @@ public class LevelScript : ScriptableObject
         {
             Debug.LogWarning("Spawning From Pool");
             timeSinceSpawn = 0;
-            var indx = Random.Range(0, spawnPool.Length);
+            var indx = UnityEngine.Random.Range(0, spawnPool.Length);
             var obj = ObjectPool.Instance.GetObject(spawnPool[indx]);
             //Position off screen.
             Vector3 pos = cam.transform.position;
-            pos.y = 0f; //force y 0
+            pos.z = 0f; //force y 0
             //TODO: Offset from camera off screen?
             obj.transform.position = pos;
 
