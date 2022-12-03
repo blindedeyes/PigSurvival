@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     public Transform MyTransform { get; private set; }
     public Rigidbody2D myRigid { get; private set; }
     EntityStats stats;
-
+    SpriteRenderer renderer;
     //Weapon Timer struct
 
 
@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
         instance = this;
         MyTransform = transform;
         myRigid = GetComponent<Rigidbody2D>();
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     // Start is called before the first frame update
@@ -113,8 +114,9 @@ public class PlayerController : MonoBehaviour
             moveDir.Normalize();
 
             //Should rotate the player the right way
-            MyTransform.right = moveDir;
-
+            //MyTransform.right = moveDir;
+            //Instead of rotate, we should just flip sprite based on X value of the move dir
+            renderer.flipX = (moveDir.x < 0);
             moveDir *= speed*Time.deltaTime;
 
             //MyTransform.position = MyTransform.position + moveDir;
