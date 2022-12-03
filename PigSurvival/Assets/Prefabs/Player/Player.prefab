@@ -70,9 +70,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: -469962961
+  m_SortingLayer: 3
+  m_SortingOrder: 10
   m_Sprite: {fileID: -1091058290, guid: 978efb2b0ec7a9849b75418ed1aa3c47, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 1761285352238775635}
   - component: {fileID: 1761285352238775634}
   - component: {fileID: 1761285352238775644}
+  - component: {fileID: 723933671}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -134,6 +135,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 1761285352238775644}
+  sprRenderer: {fileID: 1761285351756952765}
+  DeathScreen: {fileID: 0}
+  InvincibleTimer: 0.5
+  moveDir: {x: 0, y: 0, z: 0}
   weapons:
   - stats: {fileID: 11400000, guid: 6c1c055735b5acc46bb460d81c18f3b8, type: 2}
 --- !u!114 &1761285352238775632
@@ -163,7 +168,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -189,7 +194,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &1761285352238775644
 Animator:
   serializedVersion: 4
@@ -210,3 +215,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &723933671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761285352238775637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49b8c14c62667574f93bb5edc82def81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

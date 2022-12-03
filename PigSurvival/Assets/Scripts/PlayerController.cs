@@ -26,7 +26,18 @@ public class PlayerController : MonoBehaviour
     public Transform MyTransform { get; private set; }
     public Rigidbody2D myRigid { get; private set; }
     public Animator playerAnimator;
+    public SpriteRenderer sprRenderer;
+
+    public GameObject DeathScreen;
+
+    public float InvincibleTimer = .25f;
+    private Timer invTimer = new Timer();
+    private bool isInvincible = false;
+
     EntityStats stats;
+
+    [HideInInspector]
+    public Vector3 moveDir = Vector3.zero;
 
     //Weapon Timer struct
 
@@ -56,7 +67,6 @@ public class PlayerController : MonoBehaviour
             if (res) timer.Value -= timer.Time;
             return res;
         }
-
     }
 
     public Weapon[] weapons;
@@ -72,6 +82,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         stats = GetComponent<EntityStats>();
+        stats.Init();
+        stats.RegisterOnDeath(OnPlayerDied);
+        invTimer.Time = InvincibleTimer;
 
         //Setup the weapons in the object pool
         for (int i = 0; i < weapons.Length; i++)
@@ -82,45 +95,56 @@ public class PlayerController : MonoBehaviour
         weapons[0].WeaponLevel = 1;
     }
 
+    private void OnPlayerDied(EntityStats e)
+    {
+        //Player died, show the death screen.
+        DeathScreen.SetActive(true);
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
         MovePlayer();
-        
+
+        if(isInvincible)
+            isInvincible = !invTimer.Tick(Time.deltaTime);
+
         HandleWeapons();
     }
 
     void MovePlayer()
     {
         float speed = stats.Speed;
-        Vector3 moveDir = Vector3.zero;
+        Vector3 move = Vector3.zero;
+        moveDir = Vector3.zero;
         bool isWalking = false;
         if (Input.GetKey(KeyCode.W))
         {
-            moveDir.y += 1;
-            
+            move.y += 1;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            moveDir.x -= 1;
+            move.x -= 1;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            moveDir.y -= 1;
+            move.y -= 1;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            moveDir.x += 1;
+            move.x += 1;
         }
 
-        if (moveDir.sqrMagnitude > 0)
+        if (move.sqrMagnitude > 0)
         {
-            moveDir.Normalize();
+            move.Normalize();
+            moveDir = move;
 
             isWalking = true;
 
             //Should rotate the player the right way
-            MyTransform.right = moveDir;
+            //MyTransform.right = moveDir;
+            sprRenderer.flipX = (moveDir.x > 0);
 
             moveDir *= speed*Time.deltaTime;
 
@@ -156,5 +180,17 @@ public class PlayerController : MonoBehaviour
             wep.Spawn();
             yield return new WaitForSeconds(weapon.stats.GetTimeBetweenSpawns());
         }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (isInvincible) return;
+
+        //Collided with an enemy?
+        var enemy = collision.gameObject;
+        var estats = enemy.GetComponent<EntityStats>();
+        if (estats.IsActive) { stats.TakeDamage(estats.TouchDamage); }
+        isInvincible = true;
+        invTimer.Value = 0;
     }
 }

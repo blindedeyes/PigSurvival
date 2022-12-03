@@ -33,7 +33,9 @@ public class GenericWeapon : MonoBehaviour
 
         var playerTrans = PlayerController.Instance.MyTransform;
         transform.position = playerTrans.position;
-        transform.rotation = playerTrans.rotation;
+
+        transform.right = PlayerController.Instance.moveDir;
+        //transform.rotation = playerTrans.rotation;
     }
 
     public virtual void Update()

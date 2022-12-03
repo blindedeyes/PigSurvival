@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59af81277697af14fb187da41f59e6a6, type: 3}
-  m_Name: FrontAttackData
+  m_Name: AOEAttackData
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6381862280160341844, guid: f7bde21975077f9498478c639329c22d, type: 3}
+  prefab: {fileID: 2814375767675488796, guid: 6fc9b1e4b08951d4aa643fb0d03e26c6, type: 3}
   DamagePerLevel:
-  - 5
-  - 5
-  - 5
-  - 5
-  - 5
-  - 5
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
   projectilesPerLevel:
   - 1
   - 1
@@ -49,10 +49,10 @@ MonoBehaviour:
   - 0.5
   - 0.5
   timeToLivePerLevel:
-  - 0.5
-  - 0.5
-  - 0.5
-  - 0.5
-  - 0.5
-  - 0.5
-  currentLevel: 0
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  currentLevel: 1
