@@ -134,7 +134,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 1761285352238775644}
-  myRenderer: {fileID: 0}
+  sprRenderer: {fileID: 1761285351756952765}
+  moveDir: {x: 0, y: 0, z: 0}
   weapons:
   - stats: {fileID: 11400000, guid: 6c1c055735b5acc46bb460d81c18f3b8, type: 2}
 --- !u!114 &1761285352238775632

@@ -26,7 +26,11 @@ public class PlayerController : MonoBehaviour
     public Transform MyTransform { get; private set; }
     public Rigidbody2D myRigid { get; private set; }
     public Animator playerAnimator;
+    public SpriteRenderer sprRenderer;
     EntityStats stats;
+
+    [HideInInspector]
+    public Vector3 moveDir = Vector3.zero;
 
     //Weapon Timer struct
 
@@ -93,12 +97,11 @@ public class PlayerController : MonoBehaviour
     void MovePlayer()
     {
         float speed = stats.Speed;
-        Vector3 moveDir = Vector3.zero;
+        moveDir = Vector3.zero;
         bool isWalking = false;
         if (Input.GetKey(KeyCode.W))
         {
             moveDir.y += 1;
-            
         }
         if (Input.GetKey(KeyCode.A))
         {
@@ -120,7 +123,8 @@ public class PlayerController : MonoBehaviour
             isWalking = true;
 
             //Should rotate the player the right way
-            MyTransform.right = moveDir;
+            //MyTransform.right = moveDir;
+            sprRenderer.flipX = (moveDir.x > 0);
 
             moveDir *= speed*Time.deltaTime;
 

@@ -19,4 +19,4 @@ MonoBehaviour:
     - {fileID: 4904864739336975886, guid: e290c85dc6e26f246b07166e84431d74, type: 3}
     time: 0
     spawnRate: 0
-    SpawnOffset: 30
+    SpawnOffset: 50
