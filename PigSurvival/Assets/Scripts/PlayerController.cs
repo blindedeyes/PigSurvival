@@ -25,10 +25,14 @@ public class PlayerController : MonoBehaviour
 
     public Transform MyTransform { get; private set; }
     public Rigidbody2D myRigid { get; private set; }
+    public Animator playerAnimator;
     EntityStats stats;
 
     //Weapon Timer struct
 
+    private readonly int ANIM_WALKBOOL = Animator.StringToHash("Walking");
+    private readonly int ANIM_DIETRIGGER = Animator.StringToHash("Die");
+    private readonly int ANIM_RESETTRIGGER = Animator.StringToHash("Reset");
 
     [System.Serializable]
     public struct Weapon
@@ -90,10 +94,11 @@ public class PlayerController : MonoBehaviour
     {
         float speed = stats.Speed;
         Vector3 moveDir = Vector3.zero;
-
+        bool isWalking = false;
         if (Input.GetKey(KeyCode.W))
         {
             moveDir.y += 1;
+            
         }
         if (Input.GetKey(KeyCode.A))
         {
@@ -112,6 +117,8 @@ public class PlayerController : MonoBehaviour
         {
             moveDir.Normalize();
 
+            isWalking = true;
+
             //Should rotate the player the right way
             MyTransform.right = moveDir;
 
@@ -119,6 +126,11 @@ public class PlayerController : MonoBehaviour
 
             //MyTransform.position = MyTransform.position + moveDir;
             myRigid.MovePosition(MyTransform.position + moveDir);
+        }
+
+        if (playerAnimator)
+        {
+            playerAnimator.SetBool(ANIM_WALKBOOL, isWalking);
         }
     }
 
