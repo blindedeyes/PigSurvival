@@ -135,7 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 25
   Speed: 7
-  TouchDamage: 15
+  TouchDamage: 5
   SpeedModifier: 0
   TransformArrayIndex: -1
 --- !u!50 &7222178802288438935
