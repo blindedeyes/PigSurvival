@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 3051483656666781536}
   - component: {fileID: -2177331080003029069}
   m_Layer: 9
-  m_Name: DotWhite
+  m_Name: Dice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

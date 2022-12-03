@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 7704449423695148793}
   - component: {fileID: 6919252668502692204}
   m_Layer: 9
-  m_Name: DotGreen
+  m_Name: Cherry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
