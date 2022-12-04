@@ -2209,6 +2209,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AOEAttack
       objectReference: {fileID: 0}
+    - target: {fileID: 2814375767675488796, guid: 6fc9b1e4b08951d4aa643fb0d03e26c6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fc9b1e4b08951d4aa643fb0d03e26c6, type: 3}
 --- !u!1001 &3601481190631130169
