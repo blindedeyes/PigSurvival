@@ -1109,7 +1109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &979665062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1868,6 +1868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e573983240d6ded479d20eaae3f5f244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 0}
 --- !u!1 &1754065197
 GameObject:
   m_ObjectHideFlags: 0
@@ -2207,10 +2208,6 @@ PrefabInstance:
     - target: {fileID: 2814375767675488796, guid: 6fc9b1e4b08951d4aa643fb0d03e26c6, type: 3}
       propertyPath: m_Name
       value: AOEAttack
-      objectReference: {fileID: 0}
-    - target: {fileID: 2814375767675488796, guid: 6fc9b1e4b08951d4aa643fb0d03e26c6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fc9b1e4b08951d4aa643fb0d03e26c6, type: 3}

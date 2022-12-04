@@ -63,7 +63,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BlurPower: 0.005
-    - _BlurSize: 0.0207
+    - _BlurSize: 0.02
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
