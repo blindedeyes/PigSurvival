@@ -120,3 +120,8 @@ MonoBehaviour:
     time: 180
     spawnRate: 4
     SpawnOffset: 0
+  - spawnType: 1
+    enemyPrefabs: []
+    time: -1
+    spawnRate: 0
+    SpawnOffset: 0
