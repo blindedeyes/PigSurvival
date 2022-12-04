@@ -13,7 +13,6 @@ public class LevelScript : ScriptableObject
     private int lastUsedIndex;
     private Transform player;
     private float timeSinceSpawn;
-    private Camera cam;
     public delegate void EntitySpawnedEvent(GameObject o);
     private EntitySpawnedEvent entitySpawnedEvent;
 
@@ -60,7 +59,6 @@ public class LevelScript : ScriptableObject
         var spawnData = SpawnData;
 
         SpawnData.Sort(new EntitySpawnDataComparer());
-        cam = Camera.main;
     }
 
     public void Tick(float DeltaTime)
@@ -112,7 +110,7 @@ public class LevelScript : ScriptableObject
             offset.y = Mathf.Sin((float)i / count * twoPi);
             offset *= data.SpawnOffset;
             offset += PlayerController.Instance.MyTransform.position;
-            Debug.Log(offset);
+
             var obj = ObjectPool.Instance.GetObject(data.enemyPrefabs[i]);
             //Position off screen.
             Vector3 pos = offset;
@@ -127,17 +125,24 @@ public class LevelScript : ScriptableObject
     {
         timeSinceSpawn += DeltaTime;
 
-        if ((spawnRate > 0) && timeSinceSpawn >= 1f / spawnRate)
+        if ((spawnRate > 0) && timeSinceSpawn >= 1f / spawnRate && (spawnPool != null && spawnPool.Length >0))
         {
             Debug.LogWarning("Spawning From Pool");
             timeSinceSpawn = 0;
+
             var indx = UnityEngine.Random.Range(0, spawnPool.Length);
             var obj = ObjectPool.Instance.GetObject(spawnPool[indx]);
-            //Position off screen.
-            Vector3 pos = cam.transform.position;
-            pos.z = 0f; //force y 0
-            //TODO: Offset from camera off screen?
-            obj.transform.position = pos;
+
+            float spawnOffset = UnityEngine.Random.Range(0f, 360f);
+            float twoPi = Mathf.PI * 2f;
+
+            Vector3 offset = Vector3.zero;
+            offset.x = Mathf.Cos(spawnOffset *twoPi);
+            offset.y = Mathf.Sin(spawnOffset *twoPi);
+            offset *= 60f;//Always spawn 60 off, its off camera.
+            offset += PlayerController.Instance.MyTransform.position;
+
+            obj.transform.position = offset;
 
             entitySpawnedEvent?.Invoke(obj);
         }

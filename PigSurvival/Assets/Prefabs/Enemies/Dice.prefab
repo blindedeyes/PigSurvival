@@ -135,7 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 25
   Speed: 7
-  TouchDamage: 5
+  TouchDamage: 2
   SpeedModifier: 0
   TransformArrayIndex: -1
 --- !u!50 &7222178802288438935
@@ -169,7 +169,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
