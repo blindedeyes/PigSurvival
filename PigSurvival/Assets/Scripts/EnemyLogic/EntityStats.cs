@@ -23,7 +23,8 @@ public class EntityStats : MonoBehaviour
     [HideInInspector]
     public int TransformArrayIndex = -1;
 
-    private float currentHealth;
+    [HideInInspector]
+    public float currentHealth;
     
     public bool IsActive {  get {  return currentHealth > 0; } }
 
