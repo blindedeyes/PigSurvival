@@ -7,8 +7,14 @@ using UnityEngine;
 public class DeathEventHandler : MonoBehaviour
 {
     public GameObject expPrefab;
+    private Animator anim;
     EntityStats stats;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
     void Start()
     {
         stats = GetComponent<EntityStats>();
@@ -20,9 +26,15 @@ public class DeathEventHandler : MonoBehaviour
     {
         GameObject go = ObjectPool.Instance.GetObject(expPrefab);
 
-        go.transform.position = gameObject.transform.position;
+        go.transform.position = PlayerController.Instance.transform.position;
+        //go.transform.position = gameObject.transform.position;
 
-        Debug.Log(gameObject.transform.position);
+        if (anim)
+        {
+            anim.SetTrigger("Die");
+        }
+
+
         go.GetComponent<ExpObject>().EnableExp();
     }
 }
