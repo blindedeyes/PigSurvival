@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct Timer
 {
@@ -35,6 +36,9 @@ public class PlayerController : MonoBehaviour
     [Range(1, 10)]
     public int level = 0;
     public int totalExp = 0;
+
+    public Slider healthSlider; 
+
     private int[] levelUpCaps = {0, 5, 10, 15, 20, 30, 40, 60, 80, 100 };
 
     private Timer invTimer = new Timer();
@@ -90,7 +94,10 @@ public class PlayerController : MonoBehaviour
         stats = GetComponent<EntityStats>();
         stats.Init();
         stats.RegisterOnDeath(OnPlayerDied);
+        stats.RegisterOnDamage(SetHealth);
         invTimer.Time = InvincibleTimer;
+
+        SetHealth(stats.currentHealth, stats.Health);
 
         //Setup the weapons in the object pool
         for (int i = 0; i < weapons.Length; i++)
@@ -207,6 +214,33 @@ public class PlayerController : MonoBehaviour
 
         UIManager.instance.SetExp(totalExp, levelUpCaps[level]);
     }
+
+    private void LevelUp()
+    {
+        //Play some fx
+        // display info text
+    }
+
+    private void SetHealth(EntityStats e, float damage)
+    {
+        if (healthSlider)
+        {
+            healthSlider.maxValue = e.Health;
+            healthSlider.value = e.currentHealth;
+        }
+
+    }
+
+    private void SetHealth(float healthVal, float maxHealth)
+    {
+        if (healthSlider)
+        {
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = healthVal;
+        }
+
+    }
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {
