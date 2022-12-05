@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AudioMaster : MonoBehaviour
 {
-    public int poolSize = 10;
+    public int poolSize = 30;
     private static AudioMaster activeInstance = null;
     public static AudioMaster Instance
     {
@@ -56,13 +56,17 @@ public class AudioMaster : MonoBehaviour
     public AudioSourceObject PlaySound(AudioSourceSO audio)
     {
         //Play a random clip in the SO
-        var clipToPlay = audio.clipPool[UnityEngine.Random.Range(0, audio.clipPool.Length)];
+        if (unusedaudioSourcePool.Count > 0)
+        {
+            var clipToPlay = audio.clipPool[UnityEngine.Random.Range(0, audio.clipPool.Length)];
 
-        var sourceObject = unusedaudioSourcePool.Dequeue();
+            var sourceObject = unusedaudioSourcePool.Dequeue();
 
-        sourceObject.PlayClip(clipToPlay);
+            sourceObject.PlayClip(clipToPlay);
 
-        return sourceObject;
+            return sourceObject;
+        }
+        return null;
     }
 
 

@@ -16,6 +16,7 @@ public class EnemyManager : MonoBehaviour
 
     NativeArray<bool> isActive;
     NativeArray<float> speeds;
+    NativeArray<bool> facingRight;
 
     int activeObjects = 0;
     bool CanSpawn;
@@ -38,6 +39,8 @@ public class EnemyManager : MonoBehaviour
         handle.Complete();
         if (isActive.IsCreated) isActive.Dispose();
         if (speeds.IsCreated) speeds.Dispose();
+        if (facingRight.IsCreated) facingRight.Dispose();
+
     }
 
     // Update is called once per frame
@@ -59,6 +62,16 @@ public class EnemyManager : MonoBehaviour
         handle.Complete();
         if (isActive.IsCreated) isActive.Dispose();
         if (speeds.IsCreated) speeds.Dispose();
+
+        if (facingRight.IsCreated)
+        {
+            var dir = facingRight.ToArray();
+            for (int i = 0; i < dir.Length; i++)
+            {
+                stats[i].GetComponentInChildren<SpriteRenderer>().flipX = dir[i];
+            }
+            facingRight.Dispose();
+        }
     }
 
     private void HandleJobSystem()
@@ -67,8 +80,9 @@ public class EnemyManager : MonoBehaviour
         int cnt = stats.Count;
         isActive = new NativeArray<bool>(cnt, Allocator.TempJob);
         speeds = new NativeArray<float>(cnt, Allocator.TempJob);
+        facingRight = new NativeArray<bool>(cnt, Allocator.TempJob);
         //populate arrays.
-        for(int i = 0; i < cnt; i++)
+        for (int i = 0; i < cnt; i++)
         {
             var stat = stats[i];
             isActive[i] = stat.IsActive;
@@ -80,11 +94,12 @@ public class EnemyManager : MonoBehaviour
             deltaTime = Time.deltaTime,
             isActive = isActive,
             velocity = speeds,
+            rightFacing = facingRight,
             worldSpaceTarget = PlayerController.Instance.MyTransform.position
         };
 
         handle = pathJob.Schedule(transArray);
-        
+
     }
 
     void EntitySpawned(GameObject o)

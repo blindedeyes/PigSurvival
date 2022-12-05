@@ -68,8 +68,8 @@ public class PlayerController : MonoBehaviour
                 {
                     stats.currentLevel = value;
                     //timer.Value = stats.GetSpawnTime();
-                    timer.Time = stats.GetSpawnTime();
                 }
+                timer.Time = stats.GetSpawnTime();
             }
         }
 
@@ -119,6 +119,12 @@ public class PlayerController : MonoBehaviour
         //Player died, show the death screen.
         DeathScreen.SetActive(true);
         Time.timeScale = 0f;
+
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            ObjectPool.Instance.CreatePool(weapons[i].stats.prefab);
+            weapons[i].WeaponLevel = 0;
+        }
     }
 
     // Update is called once per frame
@@ -259,7 +265,7 @@ public class PlayerController : MonoBehaviour
 
         //Collided with an enemy?
         var enemy = collision.gameObject;
-        var estats = enemy.GetComponent<EntityStats>();
+        var estats = enemy.transform.parent.GetComponent<EntityStats>();
         if (estats.IsActive) { stats.TakeDamage(estats.TouchDamage); }
         isInvincible = true;
         invTimer.Value = 0;

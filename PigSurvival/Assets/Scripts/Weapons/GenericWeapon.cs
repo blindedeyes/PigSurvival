@@ -66,7 +66,7 @@ public class GenericWeapon : MonoBehaviour
             hitList.Add(collision.gameObject);
             var enemy = collision.gameObject;
             
-            var stats = enemy.GetComponent<EntityStats>();
+            var stats = enemy.transform.parent.GetComponent<EntityStats>();
             if(stats.IsActive) { stats.TakeDamage(myData.GetDamage()); }
         }
     }

@@ -12,6 +12,8 @@ public struct GenericStraightLinePathJob : IJobParallelForTransform
     [ReadOnly]
     public NativeArray<bool> isActive;
 
+    public NativeArray<bool> rightFacing;
+
     // Delta time must be copied to the job since jobs generally don't have a concept of a frame.
     // The main thread waits for the job same frame or next frame, but the job should do work deterministically
     // independent on when the job happens to run on the worker threads.        
@@ -33,7 +35,7 @@ public struct GenericStraightLinePathJob : IJobParallelForTransform
 
             var speed = velocity[Index] * deltaTime;
             direction *= speed;
-
+            rightFacing[Index] = (direction.x > 0);
             transform.position = transform.position + direction;
         }
     }
