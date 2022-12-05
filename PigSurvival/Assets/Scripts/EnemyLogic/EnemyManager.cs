@@ -40,7 +40,7 @@ public class EnemyManager : MonoBehaviour
         if (isActive.IsCreated) isActive.Dispose();
         if (speeds.IsCreated) speeds.Dispose();
         if (facingRight.IsCreated) facingRight.Dispose();
-
+        transArray.Dispose();
     }
 
     // Update is called once per frame
