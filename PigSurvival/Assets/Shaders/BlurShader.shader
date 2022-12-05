@@ -78,7 +78,7 @@ Shader "Unlit/BlurShader"
                 //    }
                 //}
                 
-                for (float d=0; d < 360; d+=10)
+                for (float d=0; d < 360; d+=30)
                 {
                     float2 uv = float2(cos(d * toRadians), sin(d * toRadians) * aspectRatio) * _BlurSize;
 

@@ -21,7 +21,7 @@ public class MenuScripts : MonoBehaviour
 
     public void LoadScene(string name)
     {
-        SceneManager.LoadScene(name);
+        SceneManager.LoadScene(name, LoadSceneMode.Single);
     }
 
     public void CloseGame()
