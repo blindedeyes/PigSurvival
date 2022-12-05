@@ -7,7 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/LevelScript", order = 1)]
 public class LevelScript : ScriptableObject
 {
-    private float runTime;
+    public float runTime;
     private GameObject[] spawnPool;
     private float spawnRate;
     private int lastUsedIndex;

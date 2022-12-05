@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer sprRenderer;
 
     public GameObject DeathScreen;
+    public GameObject WinnersText;
+
+    public LevelScript levelData;
 
     public float InvincibleTimer = .25f;
 
@@ -118,6 +121,13 @@ public class PlayerController : MonoBehaviour
     {
         //Player died, show the death screen.
         DeathScreen.SetActive(true);
+
+        Debug.Log(levelData.runTime);
+        if(levelData.runTime >= 180)
+        {
+            WinnersText.SetActive(true);
+        }
+
         Time.timeScale = 0f;
 
         for (int i = 0; i < weapons.Length; i++)

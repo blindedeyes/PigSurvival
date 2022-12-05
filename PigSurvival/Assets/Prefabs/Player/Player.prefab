@@ -291,6 +291,8 @@ MonoBehaviour:
   playerAnimator: {fileID: 1761285352238775644}
   sprRenderer: {fileID: 1761285351756952765}
   DeathScreen: {fileID: 0}
+  WinnersText: {fileID: 0}
+  levelData: {fileID: 11400000, guid: 3a1d5000c2e133943bbdf217258ebab1, type: 2}
   InvincibleTimer: 0.5
   level: 1
   totalExp: 0
