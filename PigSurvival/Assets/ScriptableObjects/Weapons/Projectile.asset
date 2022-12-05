@@ -10,31 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59af81277697af14fb187da41f59e6a6, type: 3}
-  m_Name: FrontAttackData
+  m_Name: Projectile
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6381862280160341844, guid: f7bde21975077f9498478c639329c22d, type: 3}
+  prefab: {fileID: 511627561678664378, guid: 5694f260d1d9a1548932ca182ec8f5b9, type: 3}
   DamagePerLevel:
-  - 10
-  - 15
-  - 15
-  - 20
-  - 20
-  - 20
-  - 25
-  - 25
-  - 30
-  - 30
+  - 0
+  - 0
+  - 0
+  - 0
+  - 12
+  - 12
+  - 12
+  - 12
+  - 12
+  - 12
   projectilesPerLevel:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  - 0
+  - 0
+  - 0
+  - 0
+  - 3
+  - 4
+  - 6
+  - 9
+  - 10
+  - 12
   timeBetweenProjectsPerLevel:
   - 0
   - 0
@@ -47,37 +47,47 @@ MonoBehaviour:
   - 0
   - 0
   piercePerLevel:
-  - 99
-  - 99
-  - 99
-  - 99
-  - 99
-  - 99
-  - 99
-  - 99
-  - 99
-  - 99
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 1
+  - 5
+  - 7
+  - 12
+  - 25
   spawnTimePerLevel:
-  - 1.2
-  - 1.2
+  - 9999999
+  - 9999999
+  - 9999999
+  - 9999999
+  - 5
+  - 4
+  - 3
+  - 2
   - 1
-  - 1
-  - 0.75
-  - 0.75
   - 0.5
-  - 0.5
-  - 0.3
-  - 0.3
   timeToLivePerLevel:
-  - 0.5
-  - 0.5
-  - 0.5
-  - 0.5
-  - 0.5
-  - 0.5
-  - 0.5
-  - 0.5
-  - 0.5
-  - 0.5
-  projectileTimeToLive: []
-  currentLevel: 0
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  projectileTimeToLive:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  currentLevel: 4

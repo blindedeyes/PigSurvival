@@ -16,6 +16,10 @@ public class EnemyManager : MonoBehaviour
 
     NativeArray<bool> isActive;
     NativeArray<float> speeds;
+
+    int activeObjects = 0;
+    bool CanSpawn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,13 +37,14 @@ public class EnemyManager : MonoBehaviour
     {
         handle.Complete();
         if (isActive.IsCreated) isActive.Dispose();
-        if(speeds.IsCreated) speeds.Dispose();
+        if (speeds.IsCreated) speeds.Dispose();
     }
 
     // Update is called once per frame
     void Update()
     {
-        levelData.Tick(Time.deltaTime);
+        CanSpawn = (activeObjects < 2048);
+        levelData.Tick(Time.deltaTime, ref CanSpawn);
 
         HandleJobSystem();
 
@@ -83,6 +88,8 @@ public class EnemyManager : MonoBehaviour
     {
         var stat = o.GetComponent<EntityStats>();
         stat.Init();
+        activeObjects++;
+        CanSpawn = (activeObjects <= 2048);
         if (stat.TransformArrayIndex == -1)
         {
             stat.RegisterOnDeath(EntityDied);
@@ -99,7 +106,8 @@ public class EnemyManager : MonoBehaviour
 
     void EntityDied(EntityStats e)
     {
-        //Free the enemy for the pool
-        ObjectPool.Instance.FreeObject(e.gameObject);
+        activeObjects--;
+        CanSpawn = (activeObjects <= 2048);
+
     }
 }

@@ -26,7 +26,7 @@ public class EntityStats : MonoBehaviour
     [HideInInspector]
     public float currentHealth;
     
-    public bool IsActive {  get {  return currentHealth > 0; } }
+    public bool IsActive {  get {  return Mathf.FloorToInt(currentHealth) > 0; } }
 
     public delegate void EntityStatEvent(EntityStats e);
     public delegate void EntityDamagedStatEvent(EntityStats e,float damage);
@@ -37,7 +37,6 @@ public class EntityStats : MonoBehaviour
     {
         currentHealth = Health;
         SpeedModifier = 0;
-        deathEvent = null;
     }
 
     public void RegisterOnDeath(EntityStatEvent e)
@@ -66,7 +65,8 @@ public class EntityStats : MonoBehaviour
     {
         currentHealth -= Damage;
         damageEvent?.Invoke(this, Damage);
-        if (currentHealth <= 0) deathEvent?.Invoke(this);
+        if (Mathf.FloorToInt(currentHealth) <= 0) 
+            deathEvent?.Invoke(this);
     }
 
     public void AddSpeedModifier(float mod)

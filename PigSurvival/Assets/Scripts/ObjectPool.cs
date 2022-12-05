@@ -7,7 +7,7 @@ public class ObjectPool : MonoBehaviour
     private static ObjectPool instance;
     public static ObjectPool Instance
     {
-        get 
+        get
         {
             if (instance == null)
             {
@@ -16,7 +16,7 @@ public class ObjectPool : MonoBehaviour
                 instance = go.AddComponent<ObjectPool>();
                 instance.Init();
             }
-            return instance; 
+            return instance;
         }
     }
 
@@ -30,7 +30,7 @@ public class ObjectPool : MonoBehaviour
 
         public void Initialize(GameObject prefab, int initialCount)
         {
-            objects= new List<GameObject>();
+            objects = new List<GameObject>();
             objectsInUse = new LinkedList<GameObject>();
             objectAvailable = new Queue<GameObject>();
             _prefab = prefab;
@@ -45,7 +45,7 @@ public class ObjectPool : MonoBehaviour
         public GameObject GetObject()
         {
             GameObject go;
-            if(objectAvailable.Count > 0)
+            if (objectAvailable.Count > 0)
             {
                 go = objectAvailable.Dequeue();
             }
@@ -62,11 +62,12 @@ public class ObjectPool : MonoBehaviour
         private GameObject AddObject()
         {
             var go = Instantiate(_prefab);
+            go.SetActive(false);
             go.transform.position = new Vector3(0, 100000, 0);
             objects.Add(go);
             return go;
         }
-        
+
         public void FreeObject(GameObject obj)
         {
             if (objectsInUse.Contains(obj))
@@ -81,7 +82,7 @@ public class ObjectPool : MonoBehaviour
         public void CleanUp()
         {
             //Destroy all objects.
-            for(int i = 0; i < objects.Count; i++)
+            for (int i = 0; i < objects.Count; i++)
             {
                 Destroy(objects[i]);
             }
@@ -129,5 +130,11 @@ public class ObjectPool : MonoBehaviour
             inUseToPool[go].FreeObject(go);
             inUseToPool.Remove(go);
         }
+    }
+
+    private void OnDestroy()
+    {
+        //We got destroyed....
+        instance = null;
     }
 }

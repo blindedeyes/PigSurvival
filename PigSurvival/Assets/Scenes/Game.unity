@@ -2822,6 +2822,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 571896288058422236, guid: 5fde2b0667f94764a8e80b31cdeab681, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1761285352238775633, guid: 5fde2b0667f94764a8e80b31cdeab681, type: 3}
       propertyPath: DeathScreen
       value: 

@@ -33,6 +33,7 @@ public class ExpObject : MonoBehaviour
     private IEnumerator CollectExpCoroutine(Action onComplete, GameObject target)
     {
         LeanTween.value(gameObject, MoveToTarget, 0, 1, tweenTime).setEase(LeanTweenType.easeInBack);
+        coll.enabled = false;
         yield return new WaitForSeconds(tweenTime);
 
         DisableExp();
@@ -55,7 +56,6 @@ public class ExpObject : MonoBehaviour
     {
         xpSprite.enabled = false;
         tweenTarget = null;
-        coll.enabled = false;
 
         ObjectPool.Instance.FreeObject(gameObject);
     }

@@ -26,8 +26,11 @@ public class DeathEventHandler : MonoBehaviour
     {
         GameObject go = ObjectPool.Instance.GetObject(expPrefab);
 
-        go.transform.position = PlayerController.Instance.transform.position;
-        //go.transform.position = gameObject.transform.position;
+        //go.transform.position = PlayerController.Instance.transform.position;
+        go.transform.position = e.gameObject.transform.position;
+
+        //Free the enemy for the pool
+        ObjectPool.Instance.FreeObject(e.gameObject);
 
         if (anim)
         {

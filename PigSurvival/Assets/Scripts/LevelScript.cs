@@ -61,9 +61,11 @@ public class LevelScript : ScriptableObject
         SpawnData.Sort(new EntitySpawnDataComparer());
     }
 
-    public void Tick(float DeltaTime)
+    public void Tick(float DeltaTime, ref bool CanSpawn)
     {
         float newTime = runTime + DeltaTime;
+
+        if (!CanSpawn) return;
 
         while ((lastUsedIndex + 1 < SpawnData.Count) && SpawnData[lastUsedIndex + 1].time < newTime)
         {
@@ -73,13 +75,13 @@ public class LevelScript : ScriptableObject
             switch (data.spawnType)
             {
                 case SpawnType.Random:
-                    HandleRandom(data);
+                    //HandleRandom(data, ref CanSpawn);
                     break;
                 case SpawnType.PoolSwap:
                     HandlePoolSwap(data);
                     break;
                 case SpawnType.OffsetOnPlayer:
-                    SpawnOffset(data);
+                    SpawnOffset(data, ref CanSpawn);
                     break;
                 default:
                     break;
@@ -87,7 +89,7 @@ public class LevelScript : ScriptableObject
         }
 
         runTime = newTime;
-        SpawnFromPool(DeltaTime);
+        SpawnFromPool(DeltaTime, ref CanSpawn);
     }
 
     public void HandlePoolSwap(EntitySpawnData data)
@@ -99,11 +101,11 @@ public class LevelScript : ScriptableObject
     {
 
     }
-    public void SpawnOffset(EntitySpawnData data)
+    public void SpawnOffset(EntitySpawnData data, ref bool CanSpawn)
     {
         int count = data.enemyPrefabs.Length;
         float twoPi = Mathf.PI * 2f;
-        for (int i =0; i < count; i++)
+        for (int i =0; CanSpawn && i < count; i++)
         {
             Vector3 offset = Vector3.zero;
             offset.x = Mathf.Cos((float)i / count * twoPi);
@@ -121,11 +123,11 @@ public class LevelScript : ScriptableObject
         }
     }
 
-    public void SpawnFromPool(float DeltaTime)
+    public void SpawnFromPool(float DeltaTime, ref bool CanSpawn)
     {
         timeSinceSpawn += DeltaTime;
-
-        if ((spawnRate > 0) && timeSinceSpawn >= 1f / spawnRate && (spawnPool != null && spawnPool.Length >0))
+        
+        if (CanSpawn && (spawnRate > 0) && timeSinceSpawn >= 1f / spawnRate && (spawnPool != null && spawnPool.Length >0))
         {
             Debug.LogWarning("Spawning From Pool");
             timeSinceSpawn = 0;

@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: SpawnData
   m_EditorClassIdentifier: 
   SpawnData:
+  - spawnType: 1
+    enemyPrefabs: []
+    time: -1
+    spawnRate: 0
+    SpawnOffset: 0
   - spawnType: 2
     enemyPrefabs:
     - {fileID: 4904864739336975886, guid: 0d8f45dfb7eba33458ae4a4eca1204e8, type: 3}
@@ -69,28 +74,16 @@ MonoBehaviour:
     - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
     - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
     - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
-    - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
-    - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
-    - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
-    - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
-    - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
-    - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
-    - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
-    - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
-    - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
-    - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
-    - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
-    - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
     time: 75
     spawnRate: 0
-    SpawnOffset: 50
+    SpawnOffset: 60
   - spawnType: 2
     enemyPrefabs:
     - {fileID: 4904864739336975886, guid: 7de0af94a45da3843aeb4e783094998a, type: 3}
     - {fileID: 4904864739336975886, guid: 7de0af94a45da3843aeb4e783094998a, type: 3}
     time: 90
     spawnRate: 0.5
-    SpawnOffset: 50
+    SpawnOffset: 60
   - spawnType: 1
     enemyPrefabs:
     - {fileID: 4904864739336975886, guid: b132c182aa4613649ae828b0dfdc5495, type: 3}
@@ -106,7 +99,7 @@ MonoBehaviour:
     - {fileID: 4904864739336975886, guid: 2ef8a17b3cb69784381882fad75395c0, type: 3}
     time: 150
     spawnRate: 1
-    SpawnOffset: 0
+    SpawnOffset: 60
   - spawnType: 1
     enemyPrefabs:
     - {fileID: 4904864739336975886, guid: 2ef8a17b3cb69784381882fad75395c0, type: 3}
@@ -115,9 +108,4 @@ MonoBehaviour:
     - {fileID: 4904864739336975886, guid: 2ef8a17b3cb69784381882fad75395c0, type: 3}
     time: 180
     spawnRate: 4
-    SpawnOffset: 0
-  - spawnType: 1
-    enemyPrefabs: []
-    time: -1
-    spawnRate: 0
     SpawnOffset: 0

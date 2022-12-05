@@ -50,11 +50,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c9cc38590974f4aa89a4c846b419b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 45
+  Health: 30
   Speed: 7
-  TouchDamage: 5
+  TouchDamage: 3
   SpeedModifier: 0
   TransformArrayIndex: -1
+  currentHealth: 0
 --- !u!50 &-2715857649524325197
 Rigidbody2D:
   serializedVersion: 4

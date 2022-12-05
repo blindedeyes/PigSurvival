@@ -63,9 +63,13 @@ public class PlayerController : MonoBehaviour
         public int WeaponLevel
         {
             get{ return stats.currentLevel; }
-            set { 
-                stats.currentLevel = value; 
-                timer.Time = stats.GetSpawnTime();
+            set {
+                if (stats.currentLevel != value)
+                {
+                    stats.currentLevel = value;
+                    //timer.Value = stats.GetSpawnTime();
+                    timer.Time = stats.GetSpawnTime();
+                }
             }
         }
 
@@ -74,7 +78,7 @@ public class PlayerController : MonoBehaviour
         public bool Tick(float deltaTime)
         {
             bool res = (timer.Tick(deltaTime));
-            if (res) timer.Value -= timer.Time;
+            if (res) timer.Value = 0;//Technically, this is wrong, if it would go off twice in one tick, it would miss one.
             return res;
         }
     }
@@ -86,6 +90,7 @@ public class PlayerController : MonoBehaviour
         instance = this;
         MyTransform = transform;
         myRigid = GetComponent<Rigidbody2D>();
+        Time.timeScale = 1.0f; //safety, in case we came from a previous play.
     }
 
     // Start is called before the first frame update
@@ -103,9 +108,8 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < weapons.Length; i++)
         {
             ObjectPool.Instance.CreatePool(weapons[i].stats.prefab);
+            weapons[i].WeaponLevel = level;
         }
-        //First weapon level is 1 by default.
-        weapons[0].WeaponLevel = 1;
 
         UIManager.instance.SetExp(totalExp, levelUpCaps[level]);
     }
@@ -114,6 +118,7 @@ public class PlayerController : MonoBehaviour
     {
         //Player died, show the death screen.
         DeathScreen.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     // Update is called once per frame
@@ -131,7 +136,7 @@ public class PlayerController : MonoBehaviour
     {
         float speed = stats.Speed;
         Vector3 move = Vector3.zero;
-        moveDir = Vector3.zero;
+        //moveDir = Vector3.zero;
         bool isWalking = false;
         if (Input.GetKey(KeyCode.W))
         {
@@ -194,8 +199,10 @@ public class PlayerController : MonoBehaviour
 
     public void AddExp(int xpValue)
     {
+        if (level >= levelUpCaps.Length) return;
+
         totalExp += xpValue;
-        
+
         if (totalExp >= levelUpCaps[level])
         {
             while(totalExp >= levelUpCaps[level])
@@ -204,7 +211,14 @@ public class PlayerController : MonoBehaviour
                 totalExp -= levelUpCaps[level];
                 // level up
                 level++;
+                LevelUp();
             }
+        }
+
+        //Update weapons with level.
+        for (int i = 0; i < weapons.Length; ++i)
+        {
+            weapons[i].WeaponLevel = level;
         }
 
         UIManager.instance.SetExp(totalExp, levelUpCaps[level]);
@@ -214,6 +228,8 @@ public class PlayerController : MonoBehaviour
     {
         //Play some fx
         // display info text
+        
+
     }
 
     private void SetHealth(EntityStats e, float damage)

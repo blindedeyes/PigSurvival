@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: TestSpawnData
   m_EditorClassIdentifier: 
   SpawnData:
-  - spawnType: 2
+  - spawnType: 1
     enemyPrefabs:
     - {fileID: 4904864739336975886, guid: 0d8f45dfb7eba33458ae4a4eca1204e8, type: 3}
-    - {fileID: 4904864739336975886, guid: e290c85dc6e26f246b07166e84431d74, type: 3}
     time: 0
-    spawnRate: 0
-    SpawnOffset: 50
+    spawnRate: 1
+    SpawnOffset: 0

@@ -15,15 +15,23 @@ public class WeaponData : ScriptableObject
     public float[] piercePerLevel;
     public float[] spawnTimePerLevel;
     public float[] timeToLivePerLevel;
+    public float[] projectileTimeToLive;
 
     [HideInInspector]
     [DoNotSerialize]
     public int currentLevel;
 
-    public float GetDamage() { return DamagePerLevel[currentLevel]; }
-    public float GetTimeToLive() { return timeToLivePerLevel[currentLevel]; }
-    public float GetSpawnTime() { return spawnTimePerLevel[currentLevel]; }
-    public float GetPierce() { return piercePerLevel[currentLevel]; }
-    public float GetProjectilesCount() { return projectilesPerLevel[currentLevel]; }
-    public float GetTimeBetweenSpawns(){ return timeBetweenProjectsPerLevel[currentLevel]; }
+    public float GetDamage() { return DamagePerLevel[GetClampedLevel()]; }
+    public float GetTimeToLive() { return timeToLivePerLevel[GetClampedLevel()]; }
+    public float GetSpawnTime() { return spawnTimePerLevel[GetClampedLevel()]; }
+    public float GetPierce() { return piercePerLevel[GetClampedLevel()]; }
+    public float GetProjectilesCount() { return projectilesPerLevel[GetClampedLevel()]; }
+    public float GetTimeBetweenSpawns(){ return timeBetweenProjectsPerLevel[GetClampedLevel()]; }
+
+    public float GetProjectileTimeToLive() { return projectileTimeToLive[GetClampedLevel()]; }
+
+    private int GetClampedLevel()
+    {
+        return Mathf.Clamp(currentLevel, 0, projectileTimeToLive.Length);
+    }
 }

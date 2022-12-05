@@ -134,11 +134,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c9cc38590974f4aa89a4c846b419b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 1
+  Health: 10
   Speed: 7
   TouchDamage: 2
   SpeedModifier: 0
   TransformArrayIndex: -1
+  currentHealth: 0
 --- !u!50 &7222178802288438935
 Rigidbody2D:
   serializedVersion: 4
@@ -220,5 +221,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72405735123d20546a490694121cf3cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyObject: {fileID: 4904864739336975886}
   expPrefab: {fileID: 2638365349125048897, guid: 8896df8eddc8ad745b4fb0115aa42683, type: 3}

@@ -10,7 +10,8 @@ public class MenuScripts : MonoBehaviour
 
     public void Awake()
     {
-        volumeSlider.value = PlayerPrefs.GetFloat("VOLUME");
+        if(volumeSlider!= null)
+            volumeSlider.value = PlayerPrefs.GetFloat("VOLUME");
     }
 
     public void LoadScene(string name)

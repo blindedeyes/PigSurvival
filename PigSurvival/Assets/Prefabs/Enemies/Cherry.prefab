@@ -136,9 +136,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 60
   Speed: 7
-  TouchDamage: 7
+  TouchDamage: 5
   SpeedModifier: 0
   TransformArrayIndex: -1
+  currentHealth: 0
 --- !u!50 &1532710686817235574
 Rigidbody2D:
   serializedVersion: 4
