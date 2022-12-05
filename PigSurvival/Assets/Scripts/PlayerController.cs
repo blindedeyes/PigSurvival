@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     [Range(1, 10)]
     public int level = 0;
     public int totalExp = 0;
-    private int[] levelUpCaps = { 5, 10, 15, 20, 30, 40, 60, 80, 100 };
+    private int[] levelUpCaps = {0, 5, 10, 15, 20, 30, 40, 60, 80, 100 };
 
     private Timer invTimer = new Timer();
     private bool isInvincible = false;
@@ -99,6 +99,8 @@ public class PlayerController : MonoBehaviour
         }
         //First weapon level is 1 by default.
         weapons[0].WeaponLevel = 1;
+
+        UIManager.instance.SetExp(totalExp, levelUpCaps[level]);
     }
 
     private void OnPlayerDied(EntityStats e)
@@ -202,6 +204,8 @@ public class PlayerController : MonoBehaviour
                 level++;
             }
         }
+
+        UIManager.instance.SetExp(totalExp, levelUpCaps[level]);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
