@@ -35,6 +35,7 @@ public class GenericWeapon : MonoBehaviour
         transform.position = playerTrans.position;
 
         transform.right = PlayerController.Instance.moveDir;
+        AudioMaster.Instance.PlaySound(myData.soundEffect);
         //transform.rotation = playerTrans.rotation;
     }
 

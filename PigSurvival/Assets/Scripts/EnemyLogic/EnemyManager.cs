@@ -44,6 +44,8 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         CanSpawn = (activeObjects < 2048);
+        if (Time.timeScale <= float.Epsilon) return;
+
         levelData.Tick(Time.deltaTime, ref CanSpawn);
 
         HandleJobSystem();
@@ -55,12 +57,13 @@ public class EnemyManager : MonoBehaviour
     private void LateUpdate()
     {
         handle.Complete();
-        isActive.Dispose();
-        speeds.Dispose();
+        if (isActive.IsCreated) isActive.Dispose();
+        if (speeds.IsCreated) speeds.Dispose();
     }
 
     private void HandleJobSystem()
     {
+
         int cnt = stats.Count;
         isActive = new NativeArray<bool>(cnt, Allocator.TempJob);
         speeds = new NativeArray<float>(cnt, Allocator.TempJob);

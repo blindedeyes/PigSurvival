@@ -2099,6 +2099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeSlider: {fileID: 0}
+  bgmcontroller: {fileID: 0}
 --- !u!1 &1501304097
 GameObject:
   m_ObjectHideFlags: 0

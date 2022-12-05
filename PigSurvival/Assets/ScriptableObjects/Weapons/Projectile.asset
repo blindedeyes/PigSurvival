@@ -90,4 +90,5 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  soundEffect: {fileID: 11400000, guid: 09019f11d52eeb1409e015c884165b4f, type: 2}
   currentLevel: 4

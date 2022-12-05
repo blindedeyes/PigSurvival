@@ -16,6 +16,7 @@ public class WeaponData : ScriptableObject
     public float[] spawnTimePerLevel;
     public float[] timeToLivePerLevel;
     public float[] projectileTimeToLive;
+    public AudioSourceSO soundEffect;
 
     [HideInInspector]
     [DoNotSerialize]

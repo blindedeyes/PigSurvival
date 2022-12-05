@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3caa227c79637ff499d73800373e4736, type: 3}
+  m_Name: SFX_AttackAOE
+  m_EditorClassIdentifier: 
+  clipPool:
+  - clip: {fileID: 8300000, guid: a4dfb0483eacfe54092404e26f68cbb2, type: 3}
+    group: {fileID: -8477789588220224307, guid: 80dc7db79b376604cb4d1074bc1a7008, type: 2}
+    Loop: 0

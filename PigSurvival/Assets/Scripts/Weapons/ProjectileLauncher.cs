@@ -18,7 +18,6 @@ public class ProjectileLauncher : GenericWeapon
     {
         var count = this.myData.GetProjectilesCount();
         float toRads = Mathf.PI / 180f;
-        float invDegrees = 1f / 360f /2f;
         var timeBetweenShots = myData.GetTimeBetweenSpawns();
         var waitTimeBetweenShots = new WaitForSeconds(timeBetweenShots);
         for (int i = 0; i < count; ++i)
