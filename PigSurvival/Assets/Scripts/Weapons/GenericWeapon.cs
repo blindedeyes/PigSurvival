@@ -8,10 +8,10 @@ public class GenericWeapon : MonoBehaviour
     public WeaponData myData;
 
 
-    Animator myAnimator;
+    protected Animator myAnimator;
 
-    private HashSet<GameObject> hitList= new HashSet<GameObject>();
-    private Timer TTLTimer;
+    protected HashSet<GameObject> hitList= new HashSet<GameObject>();
+    protected Timer TTLTimer;
 
     public void Awake()
     {
@@ -53,7 +53,14 @@ public class GenericWeapon : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!hitList.Contains(collision.gameObject))
+
+        if (hitList.Count >= myData.GetPierce())
+        {
+            TTLTimer.Value = float.MaxValue;
+            return;
+        }
+
+        if (!hitList.Contains(collision.gameObject))
         {
             hitList.Add(collision.gameObject);
             var enemy = collision.gameObject;

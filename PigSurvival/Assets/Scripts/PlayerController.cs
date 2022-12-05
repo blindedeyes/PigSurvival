@@ -170,22 +170,17 @@ public class PlayerController : MonoBehaviour
         {
             if (weapons[i].Tick(Time.deltaTime))
             {
-                StartCoroutine(SpawnWeapon(weapons[i]));
+                SpawnWeapon(weapons[i]);
             }
         }
     }
 
-    private IEnumerator SpawnWeapon(Weapon weapon)
+    private void SpawnWeapon(Weapon weapon)
     {
-        //Spawn weapon Attack object
-        for (int spawncnt = 0; spawncnt < weapon.stats.GetProjectilesCount(); ++spawncnt)
-        {
-            var obj = ObjectPool.Instance.GetObject(weapon.stats.prefab);
-            var wep = obj.GetComponent<GenericWeapon>();
-            wep.myData = weapon.stats;
-            wep.Spawn();
-            yield return new WaitForSeconds(weapon.stats.GetTimeBetweenSpawns());
-        }
+        var obj = ObjectPool.Instance.GetObject(weapon.stats.prefab);
+        var wep = obj.GetComponent<GenericWeapon>();
+        wep.myData = weapon.stats;
+        wep.Spawn();
     }
 
     public void AddExp(int xpValue)
