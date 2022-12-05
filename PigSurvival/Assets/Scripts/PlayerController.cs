@@ -31,6 +31,12 @@ public class PlayerController : MonoBehaviour
     public GameObject DeathScreen;
 
     public float InvincibleTimer = .25f;
+
+    [Range(1, 10)]
+    public int level = 0;
+    public int totalExp = 0;
+    private int[] levelUpCaps = { 5, 10, 15, 20, 30, 40, 60, 80, 100 };
+
     private Timer invTimer = new Timer();
     private bool isInvincible = false;
 
@@ -179,6 +185,22 @@ public class PlayerController : MonoBehaviour
             wep.myData = weapon.stats;
             wep.Spawn();
             yield return new WaitForSeconds(weapon.stats.GetTimeBetweenSpawns());
+        }
+    }
+
+    public void AddExp(int xpValue)
+    {
+        totalExp += xpValue;
+        
+        if (totalExp >= levelUpCaps[level])
+        {
+            while(totalExp >= levelUpCaps[level])
+            {
+                // subtract current level exp
+                totalExp -= levelUpCaps[level];
+                // level up
+                level++;
+            }
         }
     }
 
