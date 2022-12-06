@@ -54,11 +54,12 @@ public class LevelScript : ScriptableObject
     {
         runTime = 0;
         lastUsedIndex = -1;
-
+        timeSinceSpawn = 0;
         //Sort the spawn data by time.
         var spawnData = SpawnData;
-
+        spawnPool = null;
         SpawnData.Sort(new EntitySpawnDataComparer());
+        entitySpawnedEvent = null;
     }
 
     public void Tick(float DeltaTime, ref bool CanSpawn)

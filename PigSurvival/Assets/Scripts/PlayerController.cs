@@ -140,6 +140,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.G))
+        {
+            stats.currentHealth = 99999f;
+        }
+
         MovePlayer();
 
         if(isInvincible)

@@ -22,7 +22,7 @@ public class EnemyManager : MonoBehaviour
     bool CanSpawn;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         levelData.Init(PlayerController.Instance.MyTransform);
         levelData.RegisterEntitySpawnedEvent(EntitySpawned);
