@@ -144,6 +144,10 @@ public class PlayerController : MonoBehaviour
         {
             stats.currentHealth = 99999f;
         }
+        else if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.T))
+        {
+            stats.currentHealth = stats.Health;
+        }
 
         MovePlayer();
 

@@ -20,7 +20,13 @@ public class Projectile : GenericWeapon
 
     public override void Update()
     {
+        if (TTLTimer.Tick(Time.deltaTime))
+        {
+            ObjectPool.Instance.FreeObject(this.gameObject);
+        }
+        if (hitList.Count > myData.GetPierce() ) { ObjectPool.Instance.FreeObject(this.gameObject); }
         //Move the object
         transform.position += (transform.right * speed * Time.deltaTime);
+        
     }
 }
